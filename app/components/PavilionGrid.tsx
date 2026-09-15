@@ -22,11 +22,12 @@ export default function PavilionGrid() {
       const r = seeded(i);
       if (r < 0.22) continue; // leave gaps, like open aisles
       const lit = r > 0.6;
+      const live = r > 0.85;
       const delay = (seeded(i + 99) * 2.2).toFixed(2);
       cells.push(
         <rect
           key={i}
-          className="booth"
+          className={live ? "booth-live" : "booth"}
           x={col * STEP}
           y={row * STEP}
           width={CELL}
