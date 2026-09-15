@@ -1,16 +1,17 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #0a0b14;
-  --bg-panel: #12142a;
-  --bg-panel-2: #171a35;
-  --line: #262a4a;
-  --ink: #edeffb;
-  --ink-dim: #9296bd;
-  --ink-faint: #5b5f85;
-  --signal: #8b6bff;
-  --signal-soft: #6f52e0;
-  --beacon: #33e0b8;
+  --bg: #0a0f16;
+  --bg-panel: #141e29;
+  --bg-panel-2: #1b2733;
+  --line: #29394a;
+  --ink: #f2f5f8;
+  --ink-dim: #94a3af;
+  --ink-faint: #576673;
+  --signal: #f5810f;
+  --signal-soft: #d96f0a;
+  --beacon: #ffb454;
+  --navy: #182430;
   --amber: #ffb454;
 }
 
@@ -26,6 +27,7 @@
   --color-signal-soft: var(--signal-soft);
   --color-beacon: var(--beacon);
   --color-amber: var(--amber);
+  --color-navy: var(--navy);
   --font-display: var(--font-space-grotesk);
   --font-body: var(--font-manrope);
   --font-data: var(--font-plex-mono);

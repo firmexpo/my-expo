@@ -21,9 +21,9 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Firm Expo — the digital exposition platform",
+  title: "Firm Expo — your business on display",
   description:
-    "Firm Expo is where companies digitally expose their innovations, goals, and what's next. Launching soon.",
+    "Firm Expo is a digital exposition platform where companies present their innovations, goals, and what's next. Launching soon.",
 };
 
 export default function RootLayout({
@@ -41,5 +41,3 @@ export default function RootLayout({
     </html>
   );
 }
-
-// dummy text

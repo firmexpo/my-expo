@@ -14,7 +14,10 @@ export default function Home() {
 
         <div className="relative mx-auto grid w-full max-w-6xl gap-16 px-6 py-20 sm:px-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
           <div>
-            <p className="font-data text-sm text-ink-dim">
+            <p className="font-data text-sm text-signal">
+              Your business, on display.
+            </p>
+            <p className="mt-2 font-data text-sm text-ink-dim">
               Status: building the exhibition floor
             </p>
             <h1 className="mt-5 max-w-xl font-display text-4xl font-semibold leading-[1.08] tracking-tight text-ink sm:text-5xl lg:text-6xl">
