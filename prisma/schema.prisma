@@ -1,0 +1,23 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextIndex"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Subscriber {
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(120)
+  email     String   @unique @db.VarChar(190)
+  phone     String?  @db.VarChar(32)
+  industry  String   @db.VarChar(80)
+  ipAddress String?  @map("ip_address") @db.VarChar(45)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([createdAt])
+  @@index([industry])
+  @@map("subscribers")
+}

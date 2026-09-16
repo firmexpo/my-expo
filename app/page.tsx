@@ -41,7 +41,7 @@ export default function Home() {
             <div className="fade-up mt-10" style={{ animationDelay: "0.36s" }}>
               <NotifyForm />
               <p className="mt-3 font-data text-xs text-ink-faint">
-                No spam. Just an email when the floor opens.
+                Get launch updates and early exhibitor access. No spam.
               </p>
             </div>
           </div>

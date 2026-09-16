@@ -3,9 +3,17 @@ import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 
 export const metadata: Metadata = {
-  title: "About — Firm Expo",
+  title: "About",
   description:
-    "Firm Expo is a digital exposition platform where companies present their innovations, goals, and direction.",
+    "Firm Expo is a digital exposition platform giving companies a permanent, explorable exhibit for their innovations, goals, and displays.",
+  alternates: { canonical: "/about" },
+  openGraph: {
+    title: "About — Firm Expo",
+    description:
+      "Firm Expo is a digital exposition platform giving companies a permanent, explorable exhibit for their innovations, goals, and displays.",
+    url: "/about",
+    type: "website",
+  },
 };
 
 const facets = [

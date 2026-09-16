@@ -3,8 +3,17 @@ import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 
 export const metadata: Metadata = {
-  title: "Contact — Firm Expo",
-  description: "Get in touch with the Firm Expo team.",
+  title: "Contact",
+  description:
+    "Get in touch with the Firm Expo team about exhibiting, partnering, or launch updates.",
+  alternates: { canonical: "/contact" },
+  openGraph: {
+    title: "Contact — Firm Expo",
+    description:
+      "Get in touch with the Firm Expo team about exhibiting, partnering, or launch updates.",
+    url: "/contact",
+    type: "website",
+  },
 };
 
 export default function Contact() {

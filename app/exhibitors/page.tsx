@@ -3,9 +3,17 @@ import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 
 export const metadata: Metadata = {
-  title: "Exhibitors — Firm Expo",
+  title: "Exhibitors",
   description:
-    "Bring your company to Firm Expo and give your innovations, goals, and displays a permanent home.",
+    "Exhibit your company on Firm Expo. Get a dedicated digital space for your innovations, goals, and displays — and reach the people who should be watching.",
+  alternates: { canonical: "/exhibitors" },
+  openGraph: {
+    title: "Exhibitors — Firm Expo",
+    description:
+      "Exhibit your company on Firm Expo. Get a dedicated digital space for your innovations, goals, and displays.",
+    url: "/exhibitors",
+    type: "website",
+  },
 };
 
 const steps = [
