@@ -1,6 +1,5 @@
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["fullTextIndex"]
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -20,4 +19,41 @@ model Subscriber {
   @@index([createdAt])
   @@index([industry])
   @@map("subscribers")
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  QUALIFIED
+  EXHIBITING
+  DECLINED
+}
+
+model Lead {
+  id          Int             @id @default(autoincrement())
+  companyName String          @map("company_name") @db.VarChar(160)
+  contactName String?         @map("contact_name") @db.VarChar(120)
+  email       String          @unique @db.VarChar(190)
+  phone       String?         @db.VarChar(32)
+  industry    String?         @db.VarChar(80)
+  status      LeadStatus      @default(NEW)
+  notes       String?         @db.Text
+  createdAt   DateTime        @default(now()) @map("created_at")
+  updatedAt   DateTime        @updatedAt @map("updated_at")
+  socials     SocialProfile[]
+
+  @@index([status])
+  @@index([createdAt])
+  @@map("leads")
+}
+
+model SocialProfile {
+  id       Int    @id @default(autoincrement())
+  leadId   Int    @map("lead_id")
+  lead     Lead   @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  platform String @db.VarChar(40)
+  url      String @db.VarChar(300)
+
+  @@index([leadId])
+  @@map("lead_social_profiles")
 }

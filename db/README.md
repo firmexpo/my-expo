@@ -34,9 +34,25 @@ in this folder.
 ## Useful commands
 
 - `npm run db:studio` — opens Prisma Studio, a browser GUI for viewing and
-  editing the `subscribers` table.
+  editing the `subscribers`, `leads`, and `lead_social_profiles` tables.
 - `npx prisma generate` — regenerate the Prisma Client after changing
   `prisma/schema.prisma` (runs automatically on `npm install`).
+
+## Admin panel
+
+Visit `/admin` (redirects to `/admin/login`) to sign in with `ADMIN_PASSWORD`
+from your `.env` file. From there you can:
+
+- **Leads** — add, edit, and delete leads (company, contact, email, phone,
+  industry, status, notes, and any number of social profile links), search
+  and filter them, and export everything to CSV.
+- **Subscribers** — view and export everyone who joined the homepage
+  waitlist.
+
+The session is a signed, HTTP-only cookie valid for 7 days. There's no
+per-user login — it's a single shared password, intended for a small
+internal team. Set `ADMIN_SESSION_SECRET` to a long random string (e.g.
+`openssl rand -hex 32`) so sessions can't be forged.
 
 ## Handy queries (via Prisma Studio or a MySQL client)
 
