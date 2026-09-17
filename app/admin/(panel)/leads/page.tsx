@@ -52,6 +52,12 @@ export default async function LeadsPage({
             Export CSV
           </a>
           <Link
+            href="/admin/leads/import"
+            className="rounded-md border border-line px-4 py-2 text-sm text-ink-dim transition-colors hover:border-signal hover:text-ink"
+          >
+            Import JSON
+          </Link>
+          <Link
             href="/admin/leads/new"
             className="rounded-md bg-signal px-4 py-2 text-sm font-medium text-ink transition-colors hover:bg-signal-soft"
           >
@@ -123,9 +129,13 @@ export default async function LeadsPage({
                 </td>
                 <td className="px-4 py-3 text-ink-dim">{lead.contactName || "—"}</td>
                 <td className="px-4 py-3 text-ink-dim">
-                  <a href={`mailto:${lead.email}`} className="hover:text-signal">
-                    {lead.email}
-                  </a>
+                  {lead.email ? (
+                    <a href={`mailto:${lead.email}`} className="hover:text-signal">
+                      {lead.email}
+                    </a>
+                  ) : (
+                    <span className="text-ink-faint">—</span>
+                  )}
                 </td>
                 <td className="px-4 py-3 text-ink-dim">{lead.industry || "—"}</td>
                 <td className="px-4 py-3">

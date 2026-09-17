@@ -3,6 +3,8 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import {
+  LEAD_PRIORITIES,
+  LEAD_PRIORITY_LABELS,
   LEAD_STATUS_LABELS,
   LEAD_STATUSES,
   SOCIAL_PLATFORMS,
@@ -15,9 +17,16 @@ export type LeadFormValues = {
   contactName: string;
   email: string;
   phone: string;
+  website: string;
   industry: string;
   status: (typeof LEAD_STATUSES)[number];
   notes: string;
+  leadSource: string;
+  leadOwner: string;
+  leadScore: number;
+  priority: (typeof LEAD_PRIORITIES)[number];
+  lastContactedAt: string;
+  nextFollowUpAt: string;
   socials: SocialRow[];
 };
 
@@ -26,9 +35,16 @@ const EMPTY: LeadFormValues = {
   contactName: "",
   email: "",
   phone: "",
+  website: "",
   industry: "",
   status: "NEW",
   notes: "",
+  leadSource: "",
+  leadOwner: "",
+  leadScore: 0,
+  priority: "MEDIUM",
+  lastContactedAt: "",
+  nextFollowUpAt: "",
   socials: [],
 };
 
@@ -157,6 +173,17 @@ export default function LeadForm({
         </div>
 
         <div>
+          <label className="mb-1.5 block text-xs text-ink-dim">Website</label>
+          <input
+            value={values.website}
+            onChange={(e) => update("website", e.target.value)}
+            className={inputClass}
+            placeholder="https://acme.com"
+          />
+          {errors.website && <p className="mt-1 text-xs text-signal">{errors.website}</p>}
+        </div>
+
+        <div>
           <label className="mb-1.5 block text-xs text-ink-dim">Industry</label>
           <input
             value={values.industry}
@@ -193,6 +220,89 @@ export default function LeadForm({
           placeholder="Optional"
         />
         {errors.notes && <p className="mt-1 text-xs text-signal">{errors.notes}</p>}
+      </div>
+
+      <div className="mt-8">
+        <p className="text-xs font-medium uppercase tracking-wide text-ink-faint">
+          Lead management
+        </p>
+        <div className="mt-3 grid gap-4 sm:grid-cols-2">
+          <div>
+            <label className="mb-1.5 block text-xs text-ink-dim">Lead source</label>
+            <input
+              value={values.leadSource}
+              onChange={(e) => update("leadSource", e.target.value)}
+              className={inputClass}
+              placeholder="e.g. Website form, referral"
+            />
+            {errors.leadSource && <p className="mt-1 text-xs text-signal">{errors.leadSource}</p>}
+          </div>
+
+          <div>
+            <label className="mb-1.5 block text-xs text-ink-dim">Lead owner</label>
+            <input
+              value={values.leadOwner}
+              onChange={(e) => update("leadOwner", e.target.value)}
+              className={inputClass}
+              placeholder="Optional"
+            />
+            {errors.leadOwner && <p className="mt-1 text-xs text-signal">{errors.leadOwner}</p>}
+          </div>
+
+          <div>
+            <label className="mb-1.5 block text-xs text-ink-dim">Priority</label>
+            <select
+              value={values.priority}
+              onChange={(e) => update("priority", e.target.value as LeadFormValues["priority"])}
+              className={inputClass}
+            >
+              {LEAD_PRIORITIES.map((p) => (
+                <option key={p} value={p}>
+                  {LEAD_PRIORITY_LABELS[p]}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label className="mb-1.5 block text-xs text-ink-dim">Lead score (0–100)</label>
+            <input
+              type="number"
+              min={0}
+              max={100}
+              value={values.leadScore}
+              onChange={(e) => update("leadScore", Number(e.target.value))}
+              className={inputClass}
+            />
+            {errors.leadScore && <p className="mt-1 text-xs text-signal">{errors.leadScore}</p>}
+          </div>
+
+          <div>
+            <label className="mb-1.5 block text-xs text-ink-dim">Last contacted</label>
+            <input
+              type="date"
+              value={values.lastContactedAt}
+              onChange={(e) => update("lastContactedAt", e.target.value)}
+              className={inputClass}
+            />
+            {errors.lastContactedAt && (
+              <p className="mt-1 text-xs text-signal">{errors.lastContactedAt}</p>
+            )}
+          </div>
+
+          <div>
+            <label className="mb-1.5 block text-xs text-ink-dim">Next follow-up</label>
+            <input
+              type="date"
+              value={values.nextFollowUpAt}
+              onChange={(e) => update("nextFollowUpAt", e.target.value)}
+              className={inputClass}
+            />
+            {errors.nextFollowUpAt && (
+              <p className="mt-1 text-xs text-signal">{errors.nextFollowUpAt}</p>
+            )}
+          </div>
+        </div>
       </div>
 
       <div className="mt-6">

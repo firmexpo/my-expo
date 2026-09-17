@@ -46,6 +46,19 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  icons: {
+    // Static files in /public (not the app/ auto-convention), so Next
+    // resolves these against metadataBase into stable, absolute URLs —
+    // e.g. https://www.firmexpo.com/favicon.ico — instead of the
+    // relative, content-hashed URL the app/ file convention emits
+    // (which Search Console can't reliably pick up as a site favicon).
+    icon: [
+      { url: "/favicon.ico", sizes: "48x48", type: "image/x-icon" },
+      { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/apple-icon.png",
+  },
   openGraph: {
     type: "website",
     siteName: site.name,

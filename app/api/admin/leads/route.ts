@@ -54,7 +54,19 @@ export async function POST(request: Request) {
     );
   }
 
-  const { socials, contactName, phone, industry, notes, ...rest } = parsed.data;
+  const {
+    socials,
+    contactName,
+    phone,
+    website,
+    industry,
+    notes,
+    leadSource,
+    leadOwner,
+    lastContactedAt,
+    nextFollowUpAt,
+    ...rest
+  } = parsed.data;
 
   try {
     const lead = await prisma.lead.create({
@@ -62,8 +74,13 @@ export async function POST(request: Request) {
         ...rest,
         contactName: contactName || null,
         phone: phone || null,
+        website: website || null,
         industry: industry || null,
         notes: notes || null,
+        leadSource: leadSource || null,
+        leadOwner: leadOwner || null,
+        lastContactedAt: lastContactedAt ? new Date(lastContactedAt) : null,
+        nextFollowUpAt: nextFollowUpAt ? new Date(nextFollowUpAt) : null,
         socials: {
           create: socials.map((s) => ({ platform: s.platform, url: s.url })),
         },
@@ -76,11 +93,17 @@ export async function POST(request: Request) {
       error instanceof Prisma.PrismaClientKnownRequestError &&
       error.code === "P2002"
     ) {
+      const target = (error.meta?.target as string[] | string | undefined) ?? "";
+      const onWebsite = String(target).includes("website");
       return NextResponse.json(
         {
           ok: false,
-          message: "A lead with that email already exists.",
-          fieldErrors: { email: "Already in use by another lead." },
+          message: onWebsite
+            ? "A lead with that website already exists."
+            : "A lead with that email already exists.",
+          fieldErrors: onWebsite
+            ? { website: "Already in use by another lead." }
+            : { email: "Already in use by another lead." },
         },
         { status: 409 }
       );
