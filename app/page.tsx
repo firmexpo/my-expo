@@ -1,6 +1,6 @@
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
-import NotifyForm from "./components/NotifyForm";
+import UpdatesDrawer from "./components/UpdatesDrawer";
 import PavilionGrid from "./components/PavilionGrid";
 
 export default function Home() {
@@ -38,12 +38,13 @@ export default function Home() {
               watching.
             </p>
 
-            <div className="fade-up mt-10" style={{ animationDelay: "0.36s" }}>
-              <NotifyForm />
-              <p className="mt-3 font-data text-xs text-ink-faint">
-                Get launch updates and early exhibitor access. No spam.
-              </p>
-            </div>
+            <p
+              className="fade-up mt-10 font-data text-xs text-ink-faint"
+              style={{ animationDelay: "0.36s" }}
+            >
+              Want to know when the floor opens? Tap &ldquo;Keep me
+              updated&rdquo; in the corner.
+            </p>
           </div>
 
           <div
@@ -56,6 +57,7 @@ export default function Home() {
       </main>
 
       <Footer />
+      <UpdatesDrawer />
     </div>
   );
 }

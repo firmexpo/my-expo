@@ -7,7 +7,7 @@ type FieldErrors = Partial<Record<"name" | "email" | "phone" | "industry", strin
 
 const EMPTY = { name: "", email: "", phone: "", industry: "" };
 
-export default function NotifyForm() {
+export default function NotifyForm({ onSuccess }: { onSuccess?: () => void } = {}) {
   const [values, setValues] = useState(EMPTY);
   const [errors, setErrors] = useState<FieldErrors>({});
   const [status, setStatus] = useState<"idle" | "sending" | "done">("idle");
@@ -42,6 +42,7 @@ export default function NotifyForm() {
       setNotice(data.message);
       setStatus("done");
       setValues(EMPTY);
+      onSuccess?.();
     } catch {
       setNotice("Couldn't reach the server. Please try again.");
       setStatus("idle");
