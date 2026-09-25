@@ -3,14 +3,14 @@ import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import UpdatesDrawer from "./components/UpdatesDrawer";
 import PavilionGrid from "./components/PavilionGrid";
-import { Stage3DCanvas } from "./home/components/Stage3DCanvas";
+import { Stage3DCanvasM } from "./home/components/Stage3DCanvasMain";
 
 export default function Home() {
   return (
     
     <div className="flex min-h-screen flex-col">
       <NavBar />
-      <Stage3DCanvas />
+      <Stage3DCanvasM />
 
       <main className="relative flex flex-1 items-center overflow-hidden">
         <div className="grid-field pointer-events-none absolute inset-0" />

@@ -8,7 +8,7 @@ interface Stage3DProps {
   className?: string;
 }
 
-export const Stage3DCanvas: React.FC<Stage3DProps> = ({
+export const Stage3DCanvasM: React.FC<Stage3DProps> = ({
   activeSector,
   onSelectBooth,
   className = '',
@@ -28,10 +28,10 @@ export const Stage3DCanvas: React.FC<Stage3DProps> = ({
     prevY: 0,
     rotX: 0.38,
     rotY: -0.6,
-    targetRotX: 0.38,
+    targetRotX: 0.1,
     targetRotY: -0.6,
-    zoom: 34,
-    targetZoom: 34,
+    zoom: 38,
+    targetZoom: 38,
   });
 
   const boothMeshes = useRef<{ [key: string]: THREE.Group }>({});
@@ -43,52 +43,52 @@ export const Stage3DCanvas: React.FC<Stage3DProps> = ({
     {
       front: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1000&auto=format&fit=crop', // CNC Milling / Precision Engineering
       back: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?q=80&w=1000&auto=format&fit=crop',
-      url: 'https://apex-precision-machining.com/cnc-milling'
+      url: ''
     },
     {
       front: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1000&auto=format&fit=crop', // Automotive Robotics Arm Assembly
       back: 'https://images.unsplash.com/photo-1581092335397-9583fe92d232?q=80&w=1000&auto=format&fit=crop',
-      url: 'https://nexgen-robotics.io/automotive-solutions'
+      url: ''
     },
     {
       front: 'https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?q=80&w=1000&auto=format&fit=crop', // Electronics Circuit Board Manufacturing
       back: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1000&auto=format&fit=crop',
-      url: 'https://microtech-electronics.com/smt-assembly'
+      url: ''
     },
     {
       front: 'https://images.unsplash.com/photo-1581091215367-9b6c00b3035a?q=80&w=1000&auto=format&fit=crop', // Automated Packaging & Conveyor Line
       back: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=1000&auto=format&fit=crop',
-      url: 'https://packflow-systems.de/packaging-automation'
+      url: ''
     },
     {
       front: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=1000&auto=format&fit=crop', // Medical Device Cleanroom Production
       back: 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?q=80&w=1000&auto=format&fit=crop',
-      url: 'https://meditech-eng.com/cleanroom-devices'
+      url: ''
     },
     {
       front: 'https://images.unsplash.com/photo-1581093458791-9d42e3c73812?q=80&w=1000&auto=format&fit=crop', // Agricultural Hydroponics & Smart Farming
       back: 'https://images.unsplash.com/photo-1586771107445-d3ca888129ff?q=80&w=1000&auto=format&fit=crop',
-      url: 'https://agrotech-futures.org/smart-harvesters'
+      url: ''
     },
     {
       front: 'https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?q=80&w=1000&auto=format&fit=crop', // Industrial Metal Fabrication & Laser Cutting
       back: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=1000&auto=format&fit=crop',
-      url: 'https://titan-fabworks.com/sheet-metal'
+      url: ''
     },
     {
       front: 'https://images.unsplash.com/photo-1581092334651-ddf26d9a09d0?q=80&w=1000&auto=format&fit=crop', // Heavy Hydraulics & Turbine Manufacturing
       back: 'https://images.unsplash.com/photo-1581092162384-8987c1d64718?q=80&w=1000&auto=format&fit=crop',
-      url: 'https://powerdrive-hydraulics.com/turbines'
+      url: ''
     },
     {
       front: 'https://images.unsplash.com/photo-1581092335878-2d9ff86da2bf?q=80&w=1000&auto=format&fit=crop', // Quality Control & Metrology Inspection
       back: 'https://images.unsplash.com/photo-1581093588401-fbb62a02f120?q=80&w=1000&auto=format&fit=crop',
-      url: 'https://optiscan-metrology.net/laser-inspection'
+      url: ''
     },
     {
       front: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop', // Additive Manufacturing / 3D Metal Printing
       back: 'https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?q=80&w=1000&auto=format&fit=crop',
-      url: 'https://additive3d-works.com/metal-printing'
+      url: ''
     }
   ];
 
@@ -206,10 +206,10 @@ export const Stage3DCanvas: React.FC<Stage3DProps> = ({
     // Front of the laptop: supplied image URL.
     const frontTexture = loadImageTexture(product.front);
     const screenDisplay = new THREE.Mesh(
-      new THREE.PlaneGeometry(0.66, 0.42),
+      new THREE.PlaneGeometry(0.695, 0.455),
       new THREE.MeshBasicMaterial({ map: frontTexture, side: THREE.FrontSide })
     );
-    screenDisplay.position.set(0, 0.26, 0.011);
+    screenDisplay.position.set(0, 0.26, 0.012);
     screenDisplay.userData = { product, displaySide: 'front' };
     screenGroup.add(screenDisplay);
 
@@ -218,10 +218,10 @@ export const Stage3DCanvas: React.FC<Stage3DProps> = ({
     // useful from either side of the exhibition aisle.
     const backTexture = loadImageTexture(product.back);
     const backDisplay = new THREE.Mesh(
-      new THREE.PlaneGeometry(0.66, 0.42),
+      new THREE.PlaneGeometry(0.695, 0.455),
       new THREE.MeshBasicMaterial({ map: backTexture, side: THREE.FrontSide })
     );
-    backDisplay.position.set(0, 0.26, -0.011);
+    backDisplay.position.set(0, 0.26, -0.012);
     backDisplay.rotation.y = Math.PI;
     backDisplay.userData = { product, displaySide: 'back' };
     screenGroup.add(backDisplay);
@@ -351,24 +351,30 @@ export const Stage3DCanvas: React.FC<Stage3DProps> = ({
     stageRoot.add(welcome);
 
     const welcomeBody = new THREE.Mesh(
-      new THREE.BoxGeometry(3.65, 5.15, 0.68),
+      new THREE.BoxGeometry(3.65, 5.15, 0.78),
       new THREE.MeshStandardMaterial({ color: 0x17212c, roughness: 0.22, metalness: 0.72 })
     );
     welcomeBody.position.y = 2.58;
     welcomeBody.castShadow = true;
     welcome.add(welcomeBody);
 
-    const welcomeFace = new THREE.Mesh(
+    const logoTexture = createLogoTexture();
+
+    // FirmExpo logo on BOTH sides of the central pylon.
+    const welcomeFaceFront = new THREE.Mesh(
       new THREE.PlaneGeometry(3.18, 4.42),
-      new THREE.MeshBasicMaterial({
-        map: createLogoTexture(),
-        transparent: true,
-        alphaTest: 0.04,
-        toneMapped: false,
-      })
+      new THREE.MeshBasicMaterial({ map: logoTexture, transparent: true, alphaTest: 0.04, toneMapped: false, side: THREE.FrontSide })
     );
-    welcomeFace.position.set(0, 2.58, 0.351);
-    welcome.add(welcomeFace);
+    welcomeFaceFront.position.set(0, 2.58, 0.391);
+    welcome.add(welcomeFaceFront);
+
+    const welcomeFaceBack = new THREE.Mesh(
+      new THREE.PlaneGeometry(3.18, 4.42),
+      new THREE.MeshBasicMaterial({ map: logoTexture, transparent: true, alphaTest: 0.04, toneMapped: false, side: THREE.FrontSide })
+    );
+    welcomeFaceBack.position.set(0, 2.58, -0.391);
+    welcomeFaceBack.rotation.y = Math.PI;
+    welcome.add(welcomeFaceBack);
 
     // 7. SECTORS & PRODUCTION EQUIPMENT DESIGN
     // FirmExpo is a digital exhibition platform for production businesses.
@@ -397,9 +403,6 @@ export const Stage3DCanvas: React.FC<Stage3DProps> = ({
       const x = Math.sin(sec.angle) * radius;
       const z = Math.cos(sec.angle) * radius;
 
-      // Assign the product before using it in booth metadata.
-      // This fixes the TypeScript block-scope error caused by declaring
-      // `product` later in the same sectors.forEach() callback.
       const product = productDisplays[sectors.indexOf(sec) % productDisplays.length];
 
       const boothGroup = new THREE.Group();
@@ -435,25 +438,68 @@ export const Stage3DCanvas: React.FC<Stage3DProps> = ({
         new THREE.BoxGeometry(4.95, 0.13, 0.14),
         new THREE.MeshStandardMaterial({ color: sec.colorHex, metalness: 0.55, roughness: 0.3 })
       );
-      header.position.set(0, 3.03, -1.88);
+      header.position.set(0, 3.55, -1.88);
       boothGroup.add(header);
 
       // Back display wall — matte frame + large clean digital panel.
       const screenBack = new THREE.Mesh(
-        new THREE.BoxGeometry(4.85, 2.65, 0.14),
+        new THREE.BoxGeometry(5.8, 3.25, 0.06),
         new THREE.MeshStandardMaterial({ color: 0x161f29, metalness: 0.65, roughness: 0.28 })
       );
       screenBack.position.set(0, 1.95, -1.88);
       screenBack.castShadow = true;
       boothGroup.add(screenBack);
 
-      const screenTexture = createScreenTexture(sec.name, sec.color);
-      const screenFace = new THREE.Mesh(
-        new THREE.PlaneGeometry(4.65, 2.45),
-        new THREE.MeshBasicMaterial({ map: screenTexture })
+      // Large two-sided product display.
+      // FRONT = product.front
+      // BACK  = product.back
+      // Both images sit directly on opposite faces of the same thin panel.
+      const displayWidth = 5.55;
+      const displayHeight = 3.0;
+      const displayY = 2.05;
+      const displayFrontZ = -1.805;
+      const displayBackZ = -1.955;
+
+      const frontTexture = loadImageTexture(product.front);
+      frontTexture.wrapS = THREE.ClampToEdgeWrapping;
+      frontTexture.wrapT = THREE.ClampToEdgeWrapping;
+
+      const frontDisplay = new THREE.Mesh(
+        new THREE.PlaneGeometry(displayWidth, displayHeight),
+        new THREE.MeshBasicMaterial({
+          map: frontTexture,
+          side: THREE.FrontSide,
+          toneMapped: false,
+        })
       );
-      screenFace.position.set(0, 1.95, -1.805);
-      boothGroup.add(screenFace);
+      frontDisplay.position.set(0, displayY, displayFrontZ);
+      frontDisplay.userData = {
+        product,
+        displaySide: 'front',
+        isProductDisplay: true,
+      };
+      boothGroup.add(frontDisplay);
+
+      const backTexture = loadImageTexture(product.back);
+      backTexture.wrapS = THREE.ClampToEdgeWrapping;
+      backTexture.wrapT = THREE.ClampToEdgeWrapping;
+
+      const backDisplay = new THREE.Mesh(
+        new THREE.PlaneGeometry(displayWidth, displayHeight),
+        new THREE.MeshBasicMaterial({
+          map: backTexture,
+          side: THREE.FrontSide,
+          toneMapped: false,
+        })
+      );
+      backDisplay.position.set(0, displayY, displayBackZ);
+      backDisplay.rotation.y = Math.PI;
+      backDisplay.userData = {
+        product,
+        displaySide: 'back',
+        isProductDisplay: true,
+      };
+      boothGroup.add(backDisplay);
 
       // Small real-world reception desk rather than a laptop at every booth.
       const deskGroup = new THREE.Group();
@@ -512,6 +558,7 @@ export const Stage3DCanvas: React.FC<Stage3DProps> = ({
       // -------------------------------------------------------------
       const equipGroup = new THREE.Group();
       equipGroup.position.set(0.72, 0.34, 0.45);
+      equipGroup.scale.setScalar(1.08);
 
       if (sec.shape === 'agriculture') {
         // Autonomous Agriculture Harvester / Drone Unit
@@ -701,7 +748,86 @@ export const Stage3DCanvas: React.FC<Stage3DProps> = ({
         dynamicAnimables.push(chip);
       }
 
+      // Secondary compact production cell for a fuller machinery floor.
+      const supportGroup = new THREE.Group();
+      supportGroup.position.set(1.72, 0.34, 0.15);
+      const supportBase = new THREE.Mesh(new THREE.BoxGeometry(0.72, 0.58, 0.72), new THREE.MeshStandardMaterial({ color: 0x26313b, roughness: 0.28, metalness: 0.76 }));
+      supportBase.position.y = 0.32; supportBase.castShadow = true; supportGroup.add(supportBase);
+      const supportTop = new THREE.Mesh(new THREE.CylinderGeometry(0.24, 0.28, 0.12, 16), new THREE.MeshStandardMaterial({ color: sec.colorHex, roughness: 0.22, metalness: 0.88 }));
+      supportTop.position.y = 0.67; supportGroup.add(supportTop);
+      const supportColumn = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.09, 0.48, 12), new THREE.MeshStandardMaterial({ color: 0xd1d5db, roughness: 0.18, metalness: 0.92 }));
+      supportColumn.position.y = 0.96; supportGroup.add(supportColumn);
+      const toolRack = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.78, 0.52), new THREE.MeshStandardMaterial({ color: 0x111923, roughness: 0.3, metalness: 0.72 }));
+      toolRack.position.set(-0.52, 0.62, 0.05); supportGroup.add(toolRack);
+      [-0.22, 0, 0.22].forEach((tx) => { const tool = new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.055, 0.32, 12), new THREE.MeshStandardMaterial({ color: 0xb8c2cc, roughness: 0.18, metalness: 0.94 })); tool.position.set(tx, 0.86, 0.12); supportGroup.add(tool); });
+      // NEW MACHINERY CLUSTER — additional production equipment to make each booth
+      // feel like a real industrial showroom rather than a single-machine display.
+      const newMachinery = new THREE.Group();
+      newMachinery.position.set(0.25, 0.34, -0.15);
+
+      const machineMat = new THREE.MeshStandardMaterial({ color: 0x3b4650, metalness: 0.84, roughness: 0.22 });
+      const darkMachineMat = new THREE.MeshStandardMaterial({ color: 0x17212c, metalness: 0.78, roughness: 0.24 });
+      const steelMat = new THREE.MeshStandardMaterial({ color: 0xc5ccd3, metalness: 0.94, roughness: 0.16 });
+
+      // 1. Compact CNC lathe / turning center
+      const lathe = new THREE.Group();
+      lathe.position.set(-1.55, 0.08, -0.55);
+      const latheBody = new THREE.Mesh(new THREE.BoxGeometry(1.05, 0.82, 0.82), machineMat);
+      latheBody.position.y = 0.55; lathe.add(latheBody);
+      const chuck = new THREE.Mesh(new THREE.CylinderGeometry(0.28, 0.28, 0.16, 20), steelMat);
+      chuck.rotation.z = Math.PI / 2; chuck.position.set(0, 0.68, 0.45); lathe.add(chuck);
+      const latheBed = new THREE.Mesh(new THREE.BoxGeometry(0.82, 0.08, 0.5), darkMachineMat);
+      latheBed.position.set(0, 0.98, 0.02); lathe.add(latheBed);
+      newMachinery.add(lathe);
+      dynamicAnimables.push(chuck);
+
+      // 2. Hydraulic press / forming machine
+      const press = new THREE.Group();
+      press.position.set(1.45, 0.05, -0.62);
+      const pressFrame = new THREE.Mesh(new THREE.BoxGeometry(0.78, 1.45, 0.62), darkMachineMat);
+      pressFrame.position.y = 0.78; press.add(pressFrame);
+      const ram = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.18, 0.38), steelMat);
+      ram.position.set(0, 1.25, 0.34); press.add(ram);
+      const pressBed = new THREE.Mesh(new THREE.BoxGeometry(0.64, 0.12, 0.52), machineMat);
+      pressBed.position.set(0, 0.48, 0.34); press.add(pressBed);
+      newMachinery.add(press);
+
+      // 3. Vertical band saw / cutting station
+      const saw = new THREE.Group();
+      saw.position.set(-0.05, 0.04, -0.88);
+      const sawBody = new THREE.Mesh(new THREE.BoxGeometry(0.72, 1.05, 0.58), machineMat);
+      sawBody.position.y = 0.6; saw.add(sawBody);
+      const sawWheel = new THREE.Mesh(new THREE.TorusGeometry(0.25, 0.055, 12, 24), steelMat);
+      sawWheel.position.set(0, 0.95, 0.31); saw.add(sawWheel);
+      const sawTable = new THREE.Mesh(new THREE.BoxGeometry(0.58, 0.08, 0.52), steelMat);
+      sawTable.position.set(0, 0.32, 0.32); saw.add(sawTable);
+      newMachinery.add(saw);
+      dynamicAnimables.push(sawWheel);
+
+      // 4. Industrial air compressor / utility unit
+      const compressor = new THREE.Group();
+      compressor.position.set(2.05, 0.03, 0.55);
+      const tank = new THREE.Mesh(new THREE.CylinderGeometry(0.34, 0.34, 0.9, 20), machineMat);
+      tank.rotation.z = Math.PI / 2; tank.position.y = 0.55; compressor.add(tank);
+      const motor = new THREE.Mesh(new THREE.BoxGeometry(0.34, 0.3, 0.38), darkMachineMat);
+      motor.position.set(-0.35, 0.72, 0); compressor.add(motor);
+      const gauge = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.1, 0.04, 16), steelMat);
+      gauge.rotation.x = Math.PI / 2; gauge.position.set(0.18, 0.83, 0.34); compressor.add(gauge);
+      newMachinery.add(compressor);
+
+      // 5. Mobile welding / fabrication cart with gas bottle
+      const weldCart = new THREE.Group();
+      weldCart.position.set(-2.05, 0.04, 0.55);
+      const cart = new THREE.Mesh(new THREE.BoxGeometry(0.62, 0.72, 0.55), darkMachineMat);
+      cart.position.y = 0.48; weldCart.add(cart);
+      const gas = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.18, 0.78, 16), steelMat);
+      gas.position.set(0.18, 0.9, 0); weldCart.add(gas);
+      [-0.2, 0.2].forEach((wx) => { const wheel = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.1, 0.08, 12), darkMachineMat); wheel.rotation.z = Math.PI / 2; wheel.position.set(wx, 0.13, 0.26); weldCart.add(wheel); });
+      newMachinery.add(weldCart);
+
+      boothGroup.add(newMachinery);
       boothGroup.add(equipGroup);
+      boothGroup.add(supportGroup);
       stageRoot.add(boothGroup);
       boothMeshesMap[sec.name] = boothGroup;
     });
@@ -895,23 +1021,24 @@ export const Stage3DCanvas: React.FC<Stage3DProps> = ({
           <Sparkles className="w-4 h-4 text-amber-500 animate-pulse" />
           <span>FIRMEXPO • DIGITAL EXHIBITION</span>
         </div>
-        <div className="text-xl font-bold text-white tracking-wide drop-shadow-md">
-          {selectedPavilion}
-        </div>
         <div className="max-w-xs text-[11px] leading-relaxed text-slate-300">
           Production • Products • Capabilities • Innovation
+        </div>
+        <div className="text-xl font-bold text-white tracking-wide drop-shadow-md">
+          {hoveredObject}
         </div>
       </div>
 
       {/* Hover Selection Indicator */}
-      {hoveredObject && (
+      {/* {hoveredObject && (
         <div className="absolute bottom-20 left-1/2 -translate-x-1/2 pointer-events-none bg-amber-500 text-slate-950 font-bold px-4 py-1.5 rounded-full text-xs shadow-lg backdrop-blur-sm transition-all">
           Open {hoveredObject}
         </div>
-      )}
+      )
+      } */}
 
       {/* Stage Floating Action Controls */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-slate-900/90 backdrop-blur-lg border border-slate-700/60 p-1.5 rounded-2xl shadow-2xl">
+      {/* <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-slate-900/90 backdrop-blur-lg border border-slate-700/60 p-1.5 rounded-2xl shadow-2xl">
         <button
           onClick={() => setIsRotating(!isRotating)}
           className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-medium transition-all ${isRotating
@@ -930,7 +1057,7 @@ export const Stage3DCanvas: React.FC<Stage3DProps> = ({
           <RefreshCw className="w-3.5 h-3.5" />
           Reset View
         </button>
-      </div>
+      </div> */}
     </div>
   );
 };
