@@ -37,6 +37,61 @@ export const Stage3DCanvas: React.FC<Stage3DProps> = ({
   const boothMeshes = useRef<{ [key: string]: THREE.Group }>({});
   const animatedElements = useRef<THREE.Object3D[]>([]);
 
+  // Product / company display data. Each laptop carries the same record on
+  // both sides; a blank URL means the display is visual-only and does not navigate.
+  const productDisplays = [
+    {
+      front: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1000&auto=format&fit=crop', // CNC Milling / Precision Engineering
+      back: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?q=80&w=1000&auto=format&fit=crop',
+      url: 'https://apex-precision-machining.com/cnc-milling'
+    },
+    {
+      front: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1000&auto=format&fit=crop', // Automotive Robotics Arm Assembly
+      back: 'https://images.unsplash.com/photo-1581092335397-9583fe92d232?q=80&w=1000&auto=format&fit=crop',
+      url: 'https://nexgen-robotics.io/automotive-solutions'
+    },
+    {
+      front: 'https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?q=80&w=1000&auto=format&fit=crop', // Electronics Circuit Board Manufacturing
+      back: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1000&auto=format&fit=crop',
+      url: 'https://microtech-electronics.com/smt-assembly'
+    },
+    {
+      front: 'https://images.unsplash.com/photo-1581091215367-9b6c00b3035a?q=80&w=1000&auto=format&fit=crop', // Automated Packaging & Conveyor Line
+      back: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=1000&auto=format&fit=crop',
+      url: 'https://packflow-systems.de/packaging-automation'
+    },
+    {
+      front: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=1000&auto=format&fit=crop', // Medical Device Cleanroom Production
+      back: 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?q=80&w=1000&auto=format&fit=crop',
+      url: 'https://meditech-eng.com/cleanroom-devices'
+    },
+    {
+      front: 'https://images.unsplash.com/photo-1581093458791-9d42e3c73812?q=80&w=1000&auto=format&fit=crop', // Agricultural Hydroponics & Smart Farming
+      back: 'https://images.unsplash.com/photo-1586771107445-d3ca888129ff?q=80&w=1000&auto=format&fit=crop',
+      url: 'https://agrotech-futures.org/smart-harvesters'
+    },
+    {
+      front: 'https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?q=80&w=1000&auto=format&fit=crop', // Industrial Metal Fabrication & Laser Cutting
+      back: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=1000&auto=format&fit=crop',
+      url: 'https://titan-fabworks.com/sheet-metal'
+    },
+    {
+      front: 'https://images.unsplash.com/photo-1581092334651-ddf26d9a09d0?q=80&w=1000&auto=format&fit=crop', // Heavy Hydraulics & Turbine Manufacturing
+      back: 'https://images.unsplash.com/photo-1581092162384-8987c1d64718?q=80&w=1000&auto=format&fit=crop',
+      url: 'https://powerdrive-hydraulics.com/turbines'
+    },
+    {
+      front: 'https://images.unsplash.com/photo-1581092335878-2d9ff86da2bf?q=80&w=1000&auto=format&fit=crop', // Quality Control & Metrology Inspection
+      back: 'https://images.unsplash.com/photo-1581093588401-fbb62a02f120?q=80&w=1000&auto=format&fit=crop',
+      url: 'https://optiscan-metrology.net/laser-inspection'
+    },
+    {
+      front: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop', // Additive Manufacturing / 3D Metal Printing
+      back: 'https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?q=80&w=1000&auto=format&fit=crop',
+      url: 'https://additive3d-works.com/metal-printing'
+    }
+  ];
+
   // Helper to generate dynamic digital display textures for screens & laptops
   const createScreenTexture = (title: string, color: string) => {
     const canvas = document.createElement('canvas');
@@ -92,8 +147,26 @@ export const Stage3DCanvas: React.FC<Stage3DProps> = ({
     return texture;
   };
 
+  // FirmExpo brand mark used on the central exhibition pylon.
+  // The file lives in the app's public directory and is therefore served at this URL.
+  const createLogoTexture = () => {
+    const loader = new THREE.TextureLoader();
+    const texture = loader.load('/brand/logo-full.png');
+    texture.colorSpace = THREE.SRGBColorSpace;
+    texture.anisotropy = 8;
+    return texture;
+  };
+
+  const loadImageTexture = (src: string) => {
+    const loader = new THREE.TextureLoader();
+    const texture = loader.load(src);
+    texture.colorSpace = THREE.SRGBColorSpace;
+    texture.anisotropy = 8;
+    return texture;
+  };
+
   // Helper function to create a detailed 3D Silver Laptop model
-  const create3DLaptop = (screenColor: string) => {
+  const create3DLaptop = (screenColor: string, product: typeof productDisplays[number]) => {
     const laptopGroup = new THREE.Group();
 
     // 1. Laptop Silver Base Body
@@ -102,20 +175,20 @@ export const Stage3DCanvas: React.FC<Stage3DProps> = ({
       metalness: 0.9,
       roughness: 0.2,
     });
-    const baseMesh = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.03, 0.55), silverMat);
+    const baseMesh = new THREE.Mesh(new THREE.BoxGeometry(0.72, 0.028, 0.50), silverMat);
     baseMesh.position.y = 0.015;
     baseMesh.castShadow = true;
     laptopGroup.add(baseMesh);
 
     // Keyboard Area Surface
     const kbMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.6 });
-    const kbMesh = new THREE.Mesh(new THREE.BoxGeometry(0.72, 0.005, 0.24), kbMat);
+    const kbMesh = new THREE.Mesh(new THREE.BoxGeometry(0.64, 0.005, 0.22), kbMat);
     kbMesh.position.set(0, 0.031, -0.06);
     laptopGroup.add(kbMesh);
 
     // Trackpad Surface (Silver finish)
     const tpMat = new THREE.MeshStandardMaterial({ color: 0x9ca3af, metalness: 0.7, roughness: 0.3 });
-    const tpMesh = new THREE.Mesh(new THREE.BoxGeometry(0.24, 0.005, 0.16), tpMat);
+    const tpMesh = new THREE.Mesh(new THREE.BoxGeometry(0.21, 0.005, 0.14), tpMat);
     tpMesh.position.set(0, 0.031, 0.14);
     laptopGroup.add(tpMesh);
 
@@ -124,17 +197,36 @@ export const Stage3DCanvas: React.FC<Stage3DProps> = ({
     screenGroup.position.set(0, 0.03, -0.26);
     screenGroup.rotation.x = -Math.PI / 6; // Open laptop screen angle (~120 deg)
 
-    const screenLid = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.52, 0.02), silverMat);
+    const screenLid = new THREE.Mesh(new THREE.BoxGeometry(0.72, 0.48, 0.018), silverMat);
     screenLid.position.set(0, 0.26, 0);
     screenLid.castShadow = true;
     screenGroup.add(screenLid);
 
     // Laptop Display Screen
-    const laptopScreenTex = createScreenTexture('Workstation', screenColor);
-    const screenMat = new THREE.MeshBasicMaterial({ map: laptopScreenTex });
-    const screenDisplay = new THREE.Mesh(new THREE.PlaneGeometry(0.74, 0.46), screenMat);
+    // Front of the laptop: supplied image URL.
+    const frontTexture = loadImageTexture(product.front);
+    const screenDisplay = new THREE.Mesh(
+      new THREE.PlaneGeometry(0.66, 0.42),
+      new THREE.MeshBasicMaterial({ map: frontTexture, side: THREE.FrontSide })
+    );
     screenDisplay.position.set(0, 0.26, 0.011);
+    screenDisplay.userData = { product, displaySide: 'front' };
     screenGroup.add(screenDisplay);
+
+    // Back of the laptop lid: separate supplied image URL.
+    // It is mounted on the opposite face of the same lid so the laptop is
+    // useful from either side of the exhibition aisle.
+    const backTexture = loadImageTexture(product.back);
+    const backDisplay = new THREE.Mesh(
+      new THREE.PlaneGeometry(0.66, 0.42),
+      new THREE.MeshBasicMaterial({ map: backTexture, side: THREE.FrontSide })
+    );
+    backDisplay.position.set(0, 0.26, -0.011);
+    backDisplay.rotation.y = Math.PI;
+    backDisplay.userData = { product, displaySide: 'back' };
+    screenGroup.add(backDisplay);
+
+    laptopGroup.userData = { product, isProductLaptop: true };
 
     laptopGroup.add(screenGroup);
     return laptopGroup;
@@ -230,47 +322,52 @@ export const Stage3DCanvas: React.FC<Stage3DProps> = ({
 
     // Quiet central reception plinth — deliberately low so the booths remain the heroes.
     const centerBase = new THREE.Mesh(
-      new THREE.CylinderGeometry(3.8, 4.1, 0.45, 64),
+      new THREE.CylinderGeometry(5.5, 5.9, 0.58, 64),
       new THREE.MeshStandardMaterial({ color: 0x303b46, roughness: 0.28, metalness: 0.68 })
     );
-    centerBase.position.y = 0.22;
+    centerBase.position.y = 0.29;
     centerBase.castShadow = true;
     stageRoot.add(centerBase);
 
     const centerTop = new THREE.Mesh(
-      new THREE.CylinderGeometry(3.35, 3.5, 0.10, 64),
+      new THREE.CylinderGeometry(5.0, 5.25, 0.14, 64),
       new THREE.MeshStandardMaterial({ color: 0x111923, roughness: 0.2, metalness: 0.72 })
     );
-    centerTop.position.y = 0.50;
+    centerTop.position.y = 0.64;
     centerTop.receiveShadow = true;
     stageRoot.add(centerTop);
 
     const centerGlow = new THREE.Mesh(
-      new THREE.TorusGeometry(2.65, 0.035, 12, 96),
+      new THREE.TorusGeometry(4.15, 0.05, 12, 128),
       new THREE.MeshBasicMaterial({ color: 0xd99a43 })
     );
     centerGlow.rotation.x = Math.PI / 2;
-    centerGlow.position.y = 0.56;
+    centerGlow.position.y = 0.72;
     stageRoot.add(centerGlow);
 
-    // 6. SIMPLE FIRMEXPO WELCOME PYLON — smaller, cleaner, more realistic
+    // 6. LARGE FIRMEXPO BRAND PYLON — the visual centerpiece of the exhibition
     const welcome = new THREE.Group();
-    welcome.position.y = 0.55;
+    welcome.position.y = 0.76;
     stageRoot.add(welcome);
 
     const welcomeBody = new THREE.Mesh(
-      new THREE.BoxGeometry(1.65, 2.5, 0.42),
+      new THREE.BoxGeometry(3.65, 5.15, 0.68),
       new THREE.MeshStandardMaterial({ color: 0x17212c, roughness: 0.22, metalness: 0.72 })
     );
-    welcomeBody.position.y = 1.25;
+    welcomeBody.position.y = 2.58;
     welcomeBody.castShadow = true;
     welcome.add(welcomeBody);
 
     const welcomeFace = new THREE.Mesh(
-      new THREE.PlaneGeometry(1.38, 1.95),
-      new THREE.MeshBasicMaterial({ map: createScreenTexture('FirmExpo', '#d99a43') })
+      new THREE.PlaneGeometry(3.18, 4.42),
+      new THREE.MeshBasicMaterial({
+        map: createLogoTexture(),
+        transparent: true,
+        alphaTest: 0.04,
+        toneMapped: false,
+      })
     );
-    welcomeFace.position.set(0, 1.25, 0.221);
+    welcomeFace.position.set(0, 2.58, 0.351);
     welcome.add(welcomeFace);
 
     // 7. SECTORS & PRODUCTION EQUIPMENT DESIGN
@@ -296,14 +393,19 @@ export const Stage3DCanvas: React.FC<Stage3DProps> = ({
     const dynamicAnimables: THREE.Object3D[] = [];
 
     sectors.forEach((sec) => {
-      const radius = 15.7;
+      const radius = 16.4;
       const x = Math.sin(sec.angle) * radius;
       const z = Math.cos(sec.angle) * radius;
+
+      // Assign the product before using it in booth metadata.
+      // This fixes the TypeScript block-scope error caused by declaring
+      // `product` later in the same sectors.forEach() callback.
+      const product = productDisplays[sectors.indexOf(sec) % productDisplays.length];
 
       const boothGroup = new THREE.Group();
       boothGroup.position.set(x, 0, z);
       boothGroup.rotation.y = sec.angle + Math.PI;
-      boothGroup.userData = { sectorName: sec.name };
+      boothGroup.userData = { sectorName: sec.name, product, productUrl: product.url };
 
       // Architectural booth shell: open front, premium metal frame, no visual clutter.
       const base = new THREE.Mesh(
@@ -355,7 +457,7 @@ export const Stage3DCanvas: React.FC<Stage3DProps> = ({
 
       // Small real-world reception desk rather than a laptop at every booth.
       const deskGroup = new THREE.Group();
-      deskGroup.position.set(-1.75, 0.34, 0.82);
+      deskGroup.position.set(-1.45, 0.34, 0.72);
 
       const deskTop = new THREE.Mesh(
         new THREE.BoxGeometry(1.45, 0.10, 0.72),
@@ -393,6 +495,15 @@ export const Stage3DCanvas: React.FC<Stage3DProps> = ({
       );
       monitorStand.position.set(0, 0.86, 0);
       deskGroup.add(monitorStand);
+
+      // One laptop per pavilion: deliberately moved inward from the circular
+      // outer edge so the ring reads as a real exhibition floor, not a crowded rim.
+      // Every pavilion owns its laptop, giving generous spacing between displays.
+      const laptop = create3DLaptop(sec.color, product);
+      laptop.scale.setScalar(0.92);
+      laptop.position.set(-1.45, 0.98, 0.62);
+      laptop.rotation.y = Math.PI * 0.05;
+      boothGroup.add(laptop);
 
       boothGroup.add(deskGroup);
 
@@ -639,8 +750,10 @@ export const Stage3DCanvas: React.FC<Stage3DProps> = ({
           curr = curr.parent;
         }
         setHoveredObject(foundBooth);
+        container.style.cursor = foundBooth ? 'pointer' : 'grab';
       } else {
         setHoveredObject(null);
+        container.style.cursor = 'grab';
       }
     };
 
@@ -656,7 +769,31 @@ export const Stage3DCanvas: React.FC<Stage3DProps> = ({
       );
     };
 
-    const handleClick = () => {
+    const handleClick = (e: MouseEvent) => {
+      // Resolve the clicked 3D object directly so URL navigation does not
+      // depend on React hover state (which can lag behind a fast click).
+      const rect = container.getBoundingClientRect();
+      mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+      mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+      raycaster.setFromCamera(mouse, camera);
+
+      const intersects = raycaster.intersectObjects(stageRoot.children, true);
+      const hit = intersects.find((item) => item.object.userData?.product || item.object.parent?.userData?.isProductLaptop);
+
+      if (hit) {
+        let curr: THREE.Object3D | null = hit.object;
+        let product = curr.userData?.product;
+        while (!product && curr) {
+          product = curr.userData?.product;
+          curr = curr.parent;
+        }
+
+        if (product?.url) {
+          window.location.href = product.url;
+          return;
+        }
+      }
+
       if (hoveredObject) {
         setSelectedPavilion(hoveredObject);
         if (onSelectBooth) onSelectBooth(hoveredObject);
@@ -725,6 +862,7 @@ export const Stage3DCanvas: React.FC<Stage3DProps> = ({
       container.removeEventListener('wheel', handleWheel);
       container.removeEventListener('click', handleClick);
       window.removeEventListener('resize', handleResize);
+      container.style.cursor = 'grab';
       renderer.dispose();
       if (container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement);
@@ -768,7 +906,7 @@ export const Stage3DCanvas: React.FC<Stage3DProps> = ({
       {/* Hover Selection Indicator */}
       {hoveredObject && (
         <div className="absolute bottom-20 left-1/2 -translate-x-1/2 pointer-events-none bg-amber-500 text-slate-950 font-bold px-4 py-1.5 rounded-full text-xs shadow-lg backdrop-blur-sm transition-all">
-          Click to inspect {hoveredObject}
+          Open {hoveredObject}
         </div>
       )}
 
@@ -777,8 +915,8 @@ export const Stage3DCanvas: React.FC<Stage3DProps> = ({
         <button
           onClick={() => setIsRotating(!isRotating)}
           className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-medium transition-all ${isRotating
-              ? 'bg-amber-500 text-slate-950 font-semibold shadow-md'
-              : 'text-slate-300 hover:bg-slate-800'
+            ? 'bg-amber-500 text-slate-950 font-semibold shadow-md'
+            : 'text-slate-300 hover:bg-slate-800'
             }`}
         >
           <RotateCw className={`w-3.5 h-3.5 ${isRotating ? 'animate-spin' : ''}`} />
