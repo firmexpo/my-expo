@@ -1,6 +1,6 @@
 "use client";
 
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, type RootState } from "@react-three/fiber";
 import { Float, OrbitControls, Sphere } from "@react-three/drei";
 import { useRef } from "react";
 import * as THREE from "three";
@@ -8,7 +8,7 @@ import * as THREE from "three";
 function HeroObject() {
   const meshRef = useRef<THREE.Mesh>(null);
 
-  useFrame((state) => {
+  useFrame((state: RootState) => {
     if (!meshRef.current) return;
 
     const { x, y } = state.pointer;

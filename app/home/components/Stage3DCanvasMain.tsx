@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { RotateCw, Sparkles, RefreshCw } from 'lucide-react';
@@ -21,6 +23,7 @@ export const Stage3DCanvasM: React.FC<Stage3DProps> = ({
   const sceneRef = useRef<THREE.Scene | null>(null);
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
+  const isHoveringInteractive = useRef(false);
 
   const controlsState = useRef({
     isDragging: false,
@@ -840,6 +843,9 @@ export const Stage3DCanvasM: React.FC<Stage3DProps> = ({
     const mouse = new THREE.Vector2();
 
     const handlePointerDown = (e: MouseEvent) => {
+      // Only start a drag if the pointer is over an interactive object.
+      if (!isHoveringInteractive.current) return;
+
       controlsState.current.isDragging = true;
       controlsState.current.prevX = e.clientX;
       controlsState.current.prevY = e.clientY;
@@ -876,9 +882,14 @@ export const Stage3DCanvasM: React.FC<Stage3DProps> = ({
           curr = curr.parent;
         }
         setHoveredObject(foundBooth);
-        container.style.cursor = foundBooth ? 'pointer' : 'grab';
+
+        // ✅ Track hover state in a ref so wheel/drag handlers can read it
+        const hoveringSomething = !!foundBooth || intersects.length > 0;
+        isHoveringInteractive.current = hoveringSomething;
+        container.style.cursor = hoveringSomething ? 'pointer' : 'grab';
       } else {
         setHoveredObject(null);
+        isHoveringInteractive.current = false;
         container.style.cursor = 'grab';
       }
     };
@@ -888,6 +899,9 @@ export const Stage3DCanvasM: React.FC<Stage3DProps> = ({
     };
 
     const handleWheel = (e: WheelEvent) => {
+      // Only hijack scroll when the user is actually over an interactive object.
+      if (!isHoveringInteractive.current) return;
+
       e.preventDefault();
       controlsState.current.targetZoom = Math.max(
         14,

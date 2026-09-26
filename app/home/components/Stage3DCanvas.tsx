@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { RotateCw, Sparkles, RefreshCw } from 'lucide-react';
