@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start && node emailVerifier.mjs info@uraca.de",
+    "start": "next start",
     "lint": "eslint"
   },
   "dependencies": {
