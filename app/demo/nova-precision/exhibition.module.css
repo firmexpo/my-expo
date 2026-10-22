@@ -1,0 +1,444 @@
+
+.demoNotice {
+  padding: 9px 15px;
+  background: #fff1d8;
+  color: #704715;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 20px 5%;
+  background: #fff;
+  border-bottom: 1px solid #e5e7e5;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #102b46;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.brandMark {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  background: #102b46;
+  color: #fff;
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.brand strong,
+.brand small {
+  display: block;
+}
+
+.brand strong {
+  font-size: 18px;
+}
+
+.brand small {
+  margin-top: 4px;
+  color: #687481;
+  font-size: 10px;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+}
+
+.nav a {
+  padding: 8px 0;
+  color: #435365;
+  font-size: 11px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.nav a:hover,
+.nav .activeLink {
+  color: #a66a27;
+  border-bottom: 2px solid #e5a04a;
+}
+
+.page {
+  min-height: 70vh;
+  padding: 64px 7%;
+  background: #f5f4ef;
+  color: #102b46;
+}
+
+.pageHeading {
+  max-width: 780px;
+  margin-bottom: 36px;
+}
+
+.eyebrow {
+  color: #a66a27;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.7px;
+  text-transform: uppercase;
+}
+
+.pageHeading h1 {
+  margin: 15px 0;
+  font-size: clamp(36px, 5vw, 62px);
+  line-height: 1.08;
+  letter-spacing: -2px;
+}
+
+.pageHeading p {
+  max-width: 680px;
+  color: #687481;
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 25px 0;
+}
+
+.input,
+.select {
+  min-width: 180px;
+  max-width: 100%;
+  padding: 13px 14px;
+  border: 1px solid #d7dcd9;
+  border-radius: 0;
+  background: #fff;
+  color: #102b46;
+  font: inherit;
+  font-size: 12px;
+}
+
+.input {
+  flex: 1;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.card {
+  min-width: 0;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #e2e5e1;
+}
+
+.cardImage {
+  display: block;
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  background: #e1e5e5;
+}
+
+.cardBody {
+  padding: 22px;
+}
+
+.cardBody h2,
+.cardBody h3 {
+  margin: 10px 0;
+  font-size: 19px;
+}
+
+.cardBody p {
+  color: #687481;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.meta {
+  color: #a66a27;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 12px;
+  padding: 13px 17px;
+  border: 0;
+  background: #102b46;
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.button:hover {
+  background: #234968;
+}
+
+.videoFrame {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  background: #091a2b;
+}
+
+.videoPlaceholder {
+  display: grid;
+  place-items: center;
+  min-height: 240px;
+  padding: 25px;
+  background: #102b46;
+  color: #fff;
+  text-align: center;
+}
+
+.videoPlaceholder p {
+  max-width: 400px;
+  color: #d1d9e0;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.detailList {
+  padding-left: 18px;
+  color: #687481;
+  font-size: 12px;
+  line-height: 2;
+}
+
+.emptyState {
+  padding: 35px;
+  border: 1px dashed #c8cfce;
+  color: #687481;
+  text-align: center;
+  font-size: 13px;
+}
+
+@media (max-width: 900px) {
+  .header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .page {
+    padding: 45px 5%;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cardImage {
+    height: 230px;
+  }
+
+  .nav {
+    gap: 5px 14px;
+  }
+
+  .pageHeading h1 {
+    letter-spacing: -1px;
+  }
+}
+
+.sectionsSection {
+  padding: 90px 7%;
+  background: #eaece9;
+}
+
+.exhibitionGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid #cdd1ce;
+  border-left: 1px solid #cdd1ce;
+}
+
+.exhibitionCard {
+  position: relative;
+  display: flex;
+  gap: 24px;
+  min-height: 190px;
+  padding: 30px;
+  border-right: 1px solid #cdd1ce;
+  border-bottom: 1px solid #cdd1ce;
+  color: #102b46;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.exhibitionCard:hover {
+  background: #fff;
+}
+
+.exhibitionNumber {
+  color: #a66a27;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.exhibitionCardContent {
+  flex: 1;
+}
+
+.exhibitionCardContent h3 {
+  margin: 0 25px 12px 0;
+  font-size: 20px;
+  letter-spacing: -0.5px;
+}
+
+.exhibitionCardContent p {
+  color: #687481;
+  font-size: 12px;
+  line-height: 1.9;
+}
+
+.exhibitionLink {
+  display: inline-flex;
+  gap: 14px;
+  margin-top: 10px;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.exhibitionLink span,
+.exhibitionArrow {
+  color: #a66a27;
+}
+
+.exhibitionArrow {
+  position: absolute;
+  top: 27px;
+  right: 25px;
+  font-size: 18px;
+}
+
+.capabilitiesContent {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.capabilitiesContent h2,
+.finalCta h2 {
+  margin: 20px 0;
+  font-size: clamp(36px, 5vw, 58px);
+  line-height: 1.12;
+  letter-spacing: -2px;
+}
+
+.capabilitiesContent h2 span {
+  color: #a66a27;
+}
+
+.capabilitiesContent > p,
+.finalCta > p {
+  max-width: 700px;
+  color: #687481;
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.capabilityLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.capabilityLinks a {
+  display: inline-flex;
+  gap: 18px;
+  padding: 15px;
+  border: 1px solid #d7dcd9;
+  background: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.capabilityLinks a span {
+  color: #a66a27;
+}
+
+.finalCta {
+  padding: 95px 7%;
+  background: #102b46;
+  color: #fff;
+  text-align: center;
+}
+
+.finalCta h2 {
+  font-size: clamp(38px, 5vw, 62px);
+}
+
+.finalCta > p {
+  margin: 0 auto 28px;
+  color: #d1d9e0;
+}
+
+.finalCta small {
+  display: block;
+  margin-top: 18px;
+  color: #c4ced7;
+  font-size: 10px;
+  line-height: 1.8;
+}
+
+@media (max-width: 650px) {
+  .sectionsSection {
+    padding: 65px 6%;
+  }
+
+  .exhibitionGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .exhibitionCard {
+    min-height: 160px;
+    padding: 24px 18px;
+    gap: 16px;
+  }
+
+  .exhibitionCardContent h3 {
+    font-size: 18px;
+  }
+
+  .capabilitiesContent h2,
+  .finalCta h2 {
+    font-size: 38px;
+    letter-spacing: -1.2px;
+  }
+
+  .finalCta {
+    padding: 70px 6%;
+  }
+}
