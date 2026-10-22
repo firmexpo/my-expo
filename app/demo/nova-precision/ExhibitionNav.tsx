@@ -1,19 +1,19 @@
-
 "use client";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import styles from "./exhibition.module.css";
 
-const links = [
-  { label: "Overview", href: "/demo/nova-precision" },
-  { label: "Products", href: "/demo/nova-precision/products" },
-  { label: "Company Profile", href: "/demo/nova-precision/profile" },
-  { label: "Team", href: "/demo/nova-precision/team" },
-  { label: "Dealerships", href: "/demo/nova-precision/dealerships" },
-  { label: "Locations", href: "/demo/nova-precision/locations" },
-  { label: "Go Live", href: "/demo/nova-precision/go-live" },
+const base = "/demo/nova-precision";
 
+const links = [
+  { label: "Overview", href: base },
+  { label: "Products", href: `${base}/products` },
+  { label: "Company", href: `${base}/profile` },
+  { label: "Team", href: `${base}/team` },
+  { label: "Dealerships", href: `${base}/dealerships` },
+  { label: "Locations", href: `${base}/locations` },
+  { label: "Go Live", href: `${base}/go-live` },
 ];
 
 export default function ExhibitionNav() {
@@ -22,13 +22,13 @@ export default function ExhibitionNav() {
   return (
     <>
       <div className={styles.demoNotice}>
-        FICTIONAL COMPANY · DEMONSTRATION EXHIBITION
+        Fictional company · Demonstration exhibition
       </div>
 
       <header className={styles.header}>
-        <Link href="/demo/nova-precision" className={styles.brand}>
+        <Link href={base} className={styles.brand}>
           <span className={styles.brandMark}>F</span>
-          <span>
+          <span className={styles.brandWords}>
             <strong>FirmExpo</strong>
             <small>Your business on display.</small>
           </span>
@@ -37,7 +37,7 @@ export default function ExhibitionNav() {
         <nav className={styles.nav} aria-label="Company exhibition">
           {links.map((link) => {
             const active =
-              link.href === "/demo/nova-precision"
+              link.href === base
                 ? pathname === link.href
                 : pathname.startsWith(link.href);
 
@@ -53,6 +53,10 @@ export default function ExhibitionNav() {
             );
           })}
         </nav>
+
+        <Link href="/contact" className={styles.headerCta}>
+          Exhibit with us <span aria-hidden="true">↗</span>
+        </Link>
       </header>
     </>
   );

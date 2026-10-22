@@ -1,81 +1,11 @@
 
 import Link from "next/link";
+import ExhibitionNav from "./ExhibitionNav";
+import ExhibitionFooter from "./ExhibitionFooter";
+import { products, team, dealerships, locations } from "@/app/lib/novaPrecision";
 import styles from "./page.module.css";
 
 const base = "/demo/nova-precision";
-
-const products = [
-  {
-    id: "cnc-machining-center",
-    name: "CNC Machining Center",
-    category: "CNC Machinery",
-    description: "Precision machining for demanding industrial applications.",
-    image:
-      "https://images.unsplash.com/photo-1567789884554-0b844b597180?auto=format&fit=crop&w=1000&q=85",
-  },
-  {
-    id: "industrial-lathe",
-    name: "Industrial Turning System",
-    category: "Turning Equipment",
-    description: "Designed for consistent turning and production workflows.",
-    image:
-      "https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1000&q=85",
-  },
-  {
-    id: "automation-cell",
-    name: "Automation Cell",
-    category: "Automation",
-    description: "An integrated approach to repeatable manufacturing tasks.",
-    image:
-      "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=1000&q=85",
-  },
-];
-
-const team = [
-  {
-    name: "Alex Morgan",
-    role: "Managing Director",
-    email: "alex@example.com",
-  },
-  {
-    name: "Jordan Lee",
-    role: "Sales & Partnerships",
-    email: "sales@example.com",
-  },
-  {
-    name: "Taylor Reed",
-    role: "Engineering Lead",
-    email: "engineering@example.com",
-  },
-];
-
-const dealerships = [
-  {
-    name: "Northern Industrial Partners",
-    region: "Northern Region",
-    country: "Germany",
-    specialty: "Machinery distribution",
-  },
-  {
-    name: "Central Equipment Network",
-    region: "Central Region",
-    country: "Germany",
-    specialty: "Equipment sales and support",
-  },
-];
-
-const locations = [
-  {
-    name: "Manufacturing Facility",
-    type: "Factory",
-    address: "Demo address — replace before publishing",
-  },
-  {
-    name: "Sales & Service Office",
-    type: "Office",
-    address: "Demo address — replace before publishing",
-  },
-];
 
 const capabilities = [
   "Precision CNC machining",
@@ -88,36 +18,9 @@ const capabilities = [
 
 export default function NovaPrecisionPage() {
   return (
-    <main className={styles.page}>
-      <div className={styles.demoBanner}>
-        <span className={styles.demoDot} />
-        INTERACTIVE DEMO · FICTIONAL COMPANY PROFILE
-      </div>
-
-      <header className={styles.header}>
-        <Link href={base} className={styles.brand}>
-          <span className={styles.brandMark}>F</span>
-          <span>
-            <strong>FirmExpo</strong>
-            <small>Your business on display.</small>
-          </span>
-        </Link>
-
-        <nav className={styles.nav}>
-          <Link href={base}>Overview</Link>
-          <Link href={`${base}/products`}>Products</Link>
-          <Link href={`${base}/profile`}>Company</Link>
-          <Link href={`${base}/team`}>Team</Link>
-          <Link href={`${base}/dealerships`}>Dealerships</Link>
-          <Link href={`${base}/locations`}>Locations</Link>
-          <Link href={`${base}/go-live`}>Go Live</Link>
-        </nav>
-
-        <Link href="/contact" className={styles.headerCta}>
-          Contact FirmExpo <span>↗</span>
-        </Link>
-      </header>
-
+    <>
+      <ExhibitionNav />
+      <main className={styles.page}>
       <section className={styles.hero}>
         <div className={styles.heroVisual}>
           <img
@@ -133,7 +36,7 @@ export default function NovaPrecisionPage() {
 
           <div className={styles.heroImageCaption}>
             <span>ENGINEERING · TECHNOLOGY · PRODUCTION</span>
-            <strong>Built for precision.</strong>
+            <strong>Made with care, measured to the micron.</strong>
           </div>
         </div>
 
@@ -149,8 +52,9 @@ export default function NovaPrecisionPage() {
           </h1>
 
           <p className={styles.heroDescription}>
-            Explore the people, products, capabilities and innovations behind
-            NovaPrecision Manufacturing — presented in one digital exhibition.
+            Step inside NovaPrecision Manufacturing — the hands, the machines and
+            the quiet pride behind every part, gathered in one digital
+            exhibition.
           </p>
 
           <div className={styles.heroActions}>
@@ -193,22 +97,38 @@ export default function NovaPrecisionPage() {
         <div className={styles.sectionHeading}>
           <p className={styles.sectionLabel}>01 / COMPANY OVERVIEW</p>
           <h2>
-            More than a machine.
+            Behind every machine,
             <br />
-            <span>A complete capability.</span>
+            <span>a person who cared.</span>
           </h2>
         </div>
 
         <div className={styles.introCopy}>
           <p>
-            A company exhibition should help buyers understand not only what a
-            manufacturer makes, but how its people, engineering expertise and
-            production capabilities work together.
+            A good exhibition shows buyers not only what a manufacturer makes,
+            but who makes it — the engineers who stay late to get a tolerance
+            right, and the people who pick up the phone when something
+            matters.
           </p>
           <Link href={`${base}/profile`} className={styles.textLink}>
             Explore company profile <span>→</span>
           </Link>
         </div>
+      </section>
+
+      <section className={styles.letterSection}>
+        <figure className={styles.letter}>
+          <span className={styles.letterMark} aria-hidden="true">“</span>
+          <blockquote className={styles.letterBody}>
+            We began with one lathe, a rented garage and a promise: every part
+            that leaves our door is one we would proudly sign. Decades later,
+            that promise is still the only thing we really sell.
+          </blockquote>
+          <figcaption className={styles.letterSign}>
+            <span>Alex Morgan</span>
+            Managing Director · a letter from the workshop (fictional)
+          </figcaption>
+        </figure>
       </section>
 
       <section className={styles.productsSection}>
@@ -391,7 +311,7 @@ export default function NovaPrecisionPage() {
 
         <div className={styles.teamGrid}>
           {team.map((person, index) => (
-            <article className={styles.teamCard} key={person.email}>
+            <article className={styles.teamCard} key={person.id}>
               <div className={styles.avatar}>
                 {person.name
                   .split(" ")
@@ -401,6 +321,7 @@ export default function NovaPrecisionPage() {
               <span className={styles.teamIndex}>TEAM MEMBER / 0{index + 1}</span>
               <h3>{person.name}</h3>
               <p>{person.role}</p>
+              <blockquote className={styles.teamNote}>{person.note}</blockquote>
               <a href={`mailto:${person.email}`}>Contact member ↗</a>
             </article>
           ))}
@@ -424,11 +345,11 @@ export default function NovaPrecisionPage() {
             <span className={styles.panelNumber}>01 / DISTRIBUTION</span>
             <h3>Dealerships & partners</h3>
             {dealerships.map((dealer) => (
-              <div className={styles.networkRow} key={dealer.name}>
+              <div className={styles.networkRow} key={dealer.id}>
                 <div>
                   <strong>{dealer.name}</strong>
                   <span>
-                    {dealer.region} · {dealer.country}
+                    {dealer.products.join(" · ")} — {dealer.country}
                   </span>
                 </div>
                 <span>↗</span>
@@ -443,10 +364,10 @@ export default function NovaPrecisionPage() {
             <span className={styles.panelNumber}>02 / GLOBAL PRESENCE</span>
             <h3>Facilities & locations</h3>
             {locations.map((location) => (
-              <div className={styles.networkRow} key={location.name}>
+              <div className={styles.networkRow} key={location.id}>
                 <div>
                   <strong>{location.name}</strong>
-                  <span>{location.type}</span>
+                  <span>{location.type} · {location.country}</span>
                 </div>
                 <span>↗</span>
               </div>
@@ -462,9 +383,9 @@ export default function NovaPrecisionPage() {
         <div>
           <p className={styles.sectionLabel}>YOUR BUSINESS, ON DISPLAY</p>
           <h2>
-            Your company deserves
+            Let the world meet
             <br />
-            a better stage.
+            the people behind your name.
           </h2>
           <p>
             FirmExpo brings your products, people, capabilities and innovation
@@ -477,28 +398,8 @@ export default function NovaPrecisionPage() {
         </Link>
       </section>
 
-      <footer className={styles.footer}>
-        <Link href="/" className={styles.brand}>
-          <span className={styles.brandMark}>F</span>
-          <span>
-            <strong>FirmExpo</strong>
-            <small>Your business on display.</small>
-          </span>
-        </Link>
-
-        <p>A digital exhibition stage for production businesses.</p>
-
-        <div className={styles.footerLinks}>
-          <Link href="/">FirmExpo home</Link>
-          <Link href="/about">About</Link>
-          <Link href="/exhibitors">Exhibitors</Link>
-          <Link href="/contact">Contact</Link>
-        </div>
-
-        <span className={styles.copyright}>
-          © {new Date().getFullYear()} FirmExpo
-        </span>
-      </footer>
     </main>
+      <ExhibitionFooter />
+    </>
   );
 }

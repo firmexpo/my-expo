@@ -3,6 +3,8 @@
 
 import { FormEvent, useState } from "react";
 import Link from "next/link";
+import ExhibitionNav from "../ExhibitionNav";
+import ExhibitionFooter from "../ExhibitionFooter";
 import styles from "./go-live.module.css";
 
 const base = "/demo/nova-precision";
@@ -68,36 +70,9 @@ export default function GoLivePage() {
   const [formStatus, setFormStatus] = useState("");
 
   return (
-    <main className={styles.page}>
-      <div className={styles.demoNotice}>
-        <span className={styles.noticeDot} />
-        FIRMEXPO EXHIBITION EXPERIENCE
-        <span className={styles.noticeDivider}>/</span>
-        NOVAPRECISION DEMO
-      </div>
-
-      <header className={styles.header}>
-        <Link href={base} className={styles.brand}>
-          <span className={styles.brandMark}>F</span>
-          <span className={styles.brandWords}>
-            <strong>FirmExpo</strong>
-            <small>Your business on display.</small>
-          </span>
-        </Link>
-
-        <nav className={styles.nav}>
-          <Link href={base}>Overview</Link>
-          <Link href={`${base}/products`}>Products</Link>
-          <Link href={`${base}/profile`}>Company</Link>
-          <Link href={`${base}/team`}>Team</Link>
-          <Link href="/demo/nova-precision/go-live">Go Live</Link>
-        </nav>
-
-        <Link href="#enquiry" className={styles.headerButton}>
-          Make an enquiry <span>↗</span>
-        </Link>
-      </header>
-
+    <>
+      <ExhibitionNav />
+      <main className={styles.page}>
       <section className={styles.pageIntro}>
         <div>
           <div className={styles.breadcrumb}>
@@ -466,24 +441,6 @@ export default function GoLivePage() {
         </form>
       </section>
 
-      <footer className={styles.footer}>
-        <Link href="/" className={styles.brand}>
-          <span className={styles.brandMark}>F</span>
-          <span className={styles.brandWords}>
-            <strong>FirmExpo</strong>
-            <small>Your business on display.</small>
-          </span>
-        </Link>
-
-        <p>A digital exhibition stage for production businesses.</p>
-
-        <div className={styles.footerLinks}>
-          <Link href={base}>Company exhibition</Link>
-          <Link href={`${base}/products`}>Products</Link>
-          <Link href="/contact">Contact FirmExpo</Link>
-        </div>
-      </footer>
-
       {connectOpen && (
         <div
           className={styles.modalBackdrop}
@@ -580,5 +537,7 @@ export default function GoLivePage() {
         </div>
       )}
     </main>
+      <ExhibitionFooter />
+    </>
   );
 }

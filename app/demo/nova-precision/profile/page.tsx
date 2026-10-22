@@ -1,5 +1,6 @@
 
 import ExhibitionNav from "../ExhibitionNav";
+import ExhibitionFooter from "../ExhibitionFooter";
 import { company } from "@/app/lib/novaPrecision";
 import styles from "../exhibition.module.css";
 
@@ -105,6 +106,7 @@ export default function CompanyProfilePage() {
           />
         </section>
       </main>
+      <ExhibitionFooter />
     </>
   );
 }

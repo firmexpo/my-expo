@@ -4,6 +4,7 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import ExhibitionNav from "../ExhibitionNav";
+import ExhibitionFooter from "../ExhibitionFooter";
 import { products } from "@/app/lib/novaPrecision"; // from "@/lib/novaPrecision";
 import styles from "../exhibition.module.css";
 
@@ -81,7 +82,9 @@ export default function ProductsPage() {
           </select>
         </div>
 
-        <p>{filtered.length} products displayed</p>
+        <p className={styles.count}>
+          {String(filtered.length).padStart(2, "0")} on display
+        </p>
 
         {filtered.length === 0 ? (
           <div className={styles.emptyState}>
@@ -118,6 +121,7 @@ export default function ProductsPage() {
           </div>
         )}
       </main>
+      <ExhibitionFooter />
     </>
   );
 }

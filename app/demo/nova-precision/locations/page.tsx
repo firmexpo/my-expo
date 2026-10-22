@@ -3,6 +3,7 @@
 
 import { useMemo, useState } from "react";
 import ExhibitionNav from "../ExhibitionNav";
+import ExhibitionFooter from "../ExhibitionFooter";
 import { locations } from "@/app/lib/novaPrecision";
 import styles from "../exhibition.module.css";
 
@@ -118,6 +119,7 @@ export default function LocationsPage() {
           </div>
         )}
       </main>
+      <ExhibitionFooter />
     </>
   );
 }

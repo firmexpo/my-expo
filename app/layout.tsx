@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Manrope, IBM_Plex_Mono, Geist } from "next/font/google";
+import { Space_Grotesk, Manrope, IBM_Plex_Mono, Geist, Fraunces } from "next/font/google";
 import { site } from "./lib/site";
 import "./globals.css";
 import Script from "next/script";
@@ -18,6 +18,14 @@ const manrope = Manrope({
   variable: "--font-manrope",
   subsets: ["latin"],
   weight: ["400", "500", "600"],
+  display: "swap",
+});
+
+// Warm editorial serif used by the demo exhibitions for headlines.
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin"],
+  style: ["normal", "italic"],
   display: "swap",
 });
 
@@ -184,7 +192,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={cn("font-sans", geist.variable)}>
       <body
-        className={`${spaceGrotesk.variable} ${manrope.variable} ${plexMono.variable} font-body antialiased`}
+        className={`${spaceGrotesk.variable} ${manrope.variable} ${plexMono.variable} ${fraunces.variable} font-body antialiased`}
       >
       {/* Google tag (gtag.js)  */}
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-N8TZP040KX"></script>

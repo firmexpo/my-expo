@@ -1,5 +1,6 @@
 
 import ExhibitionNav from "../ExhibitionNav";
+import ExhibitionFooter from "../ExhibitionFooter";
 import { team } from "@/app/lib/novaPrecision";
 import styles from "../exhibition.module.css";
 
@@ -27,8 +28,11 @@ export default function TeamPage() {
                   alt={person.name}
                 />
               ) : (
-                <div className={styles.videoPlaceholder}>
-                  <span>Team profile photo</span>
+                <div className={styles.portrait} aria-hidden="true">
+                  {person.name
+                    .split(" ")
+                    .map((part) => part[0])
+                    .join("")}
                 </div>
               )}
 
@@ -36,6 +40,9 @@ export default function TeamPage() {
                 <span className={styles.meta}>{person.role}</span>
                 <h2>{person.name}</h2>
                 <p>{person.bio}</p>
+                {person.note && (
+                  <blockquote className={styles.story}>{person.note}</blockquote>
+                )}
 
                 <p>
                   <a href={`mailto:${person.email}`}>{person.email}</a>
@@ -56,11 +63,12 @@ export default function TeamPage() {
           ))}
         </div>
 
-        <p style={{ marginTop: 30, color: "#687481", fontSize: 12 }}>
+        <p className={styles.fineprint}>
           Demo data: replace these fictional profiles with company-approved
           names, photographs, job titles, and business contact details.
         </p>
       </main>
+      <ExhibitionFooter />
     </>
   );
 }
