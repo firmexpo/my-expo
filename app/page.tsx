@@ -1,3 +1,4 @@
+import Link from "next/link";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import UpdatesDrawer from "../components/UpdatesDrawer";
@@ -41,8 +42,29 @@ export default function Home() {
               watching.
             </p>
 
+            <div
+              className="fade-up mt-9 flex flex-wrap items-center gap-x-5 gap-y-3"
+              style={{ animationDelay: "0.32s" }}
+            >
+              <Link
+                href="/demo"
+                className="group inline-flex items-center gap-2 rounded-full bg-signal px-6 py-3 text-sm font-semibold text-bg transition-colors hover:bg-beacon"
+              >
+                Explore the demo exhibition
+                <span
+                  aria-hidden="true"
+                  className="transition-transform duration-200 group-hover:translate-x-1"
+                >
+                  →
+                </span>
+              </Link>
+              <span className="font-data text-xs text-ink-faint">
+                3 sample companies · walk the floor
+              </span>
+            </div>
+
             <p
-              className="fade-up mt-10 font-data text-xs text-ink-faint"
+              className="fade-up mt-8 font-data text-xs text-ink-faint"
               style={{ animationDelay: "0.36s" }}
             >
               Want to know when the floor opens? Tap &ldquo;Keep me

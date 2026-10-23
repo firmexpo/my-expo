@@ -15,6 +15,7 @@ export default function Footer() {
             <span>Firm Expo — a digital exposition platform.</span>
           </div>
           <div className="flex flex-wrap items-center gap-6 text-sm text-ink-faint">
+            <Link href="/demo" className="hover:text-ink-dim">Demo Exhibition</Link>
             <Link href="/about" className="hover:text-ink-dim">About</Link>
             <Link href="/exhibitors" className="hover:text-ink-dim">Exhibitors</Link>
             <Link href="/contact" className="hover:text-ink-dim">Contact</Link>

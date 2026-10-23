@@ -3,6 +3,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import { demoCompanies } from "@/app/lib/demoCompanies";
 import styles from "./demo-directory.module.css";
 
 type Exhibitor = {
@@ -16,30 +17,18 @@ type Exhibitor = {
   demo?: boolean;
 };
 
-const exhibitors: Exhibitor[] = [
-  {
-    name: "NovaPrecision Manufacturing",
-    slug: "/demo/nova-precision",
-    industry: "Machinery & Equipment",
-    location: "Demo exhibition",
-    description:
-      "Explore precision engineering, industrial machinery, product capabilities, and company information.",
-    initials: "NP",
-    featured: true,
-    demo: true,
-  },
-
-  // Add each new exhibitor here.
-  // Example:
-  // {
-  //   name: "Company Name",
-  //   slug: "/demo/company-slug",
-  //   industry: "Steel & Metals",
-  //   location: "Germany",
-  //   description: "Company introduction and product capabilities.",
-  //   initials: "CN",
-  // },
-];
+// Exhibitors come from app/lib/demoCompanies.ts — add a company there and it
+// appears here automatically.
+const exhibitors: Exhibitor[] = demoCompanies.map((company) => ({
+  name: company.profile.name,
+  slug: `/demo/${company.slug}`,
+  industry: company.industry,
+  location: company.location,
+  description: company.blurb,
+  initials: company.initials,
+  featured: company.featured,
+  demo: true,
+}));
 
 const industries = [
   "All industries",
@@ -102,7 +91,7 @@ export default function DemoDirectoryPage() {
         <nav className={styles.nav}>
           <a href="#industries">Industries</a>
           <a href="#exhibitors">Exhibitors</a>
-          <Link href="/demo/nova-precision">Explore exhibition</Link>
+          <Link href={exhibitors[0].slug}>Explore exhibition</Link>
         </nav>
       </header>
 
