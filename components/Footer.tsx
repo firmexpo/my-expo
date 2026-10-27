@@ -19,6 +19,14 @@ export default function Footer() {
             <Link href="/about" className="hover:text-ink-dim">About</Link>
             <Link href="/exhibitors" className="hover:text-ink-dim">Exhibitors</Link>
             <Link href="/contact" className="hover:text-ink-dim">Contact</Link>
+            <a
+              href="https://www.linkedin.com/company/firmexpo/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-ink-dim"
+            >
+              LinkedIn
+            </a>
             <a href="mailto:firmexpocarnival@gmail.com" className="hover:text-ink-dim">
               firmexpocarnival@gmail.com
             </a>

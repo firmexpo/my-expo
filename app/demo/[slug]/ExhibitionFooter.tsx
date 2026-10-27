@@ -32,6 +32,13 @@ export default function ExhibitionFooter({
           <Link href={`${base}/go-live`}>Go Live</Link>
           <Link href="/demo">All exhibitors</Link>
           <Link href="/contact">Contact</Link>
+          <a
+            href="https://www.linkedin.com/company/firmexpo/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            LinkedIn
+          </a>
         </div>
       </div>
 

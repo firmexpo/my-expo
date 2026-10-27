@@ -7,5 +7,6 @@ export const site = {
   email: "firmexpocarnival@gmail.com",
   instagram: "https://www.instagram.com/firmexpo",
   twitter: "https://x.com/thefirmexpo",
+  linkedin: "https://www.linkedin.com/company/firmexpo/",
   twitterHandle: "@thefirmexpo",
 } as const;

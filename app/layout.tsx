@@ -175,7 +175,7 @@ export default function RootLayout({
           "@type": "ImageObject",
           url: `${site.url}/brand/logo-full.png`,
         },
-        sameAs: [site.instagram, site.twitter],
+        sameAs: [site.instagram, site.twitter, site.linkedin],
       },
       {
         "@type": "WebSite",

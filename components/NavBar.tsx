@@ -10,11 +10,37 @@ import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
 
 const links = [
-  { href: "/demo", label: "Demo Exhibition" },
   { href: "/about", label: "About" },
   { href: "/exhibitors", label: "Exhibitors" },
   { href: "/contact", label: "Contact" },
 ];
+
+const demoHref = "/demo";
+
+// Eye-catching entry point to the demo exhibition: filled accent pill, a
+// pulsing "live" dot and a soft glow so it reads at a glance.
+function DemoCta({ className = "" }: { className?: string }) {
+  return (
+    <Link
+      href={demoHref}
+      className={`group relative inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-signal px-4 py-2 text-sm font-semibold text-bg shadow-[0_0_0_1px_rgba(255,180,84,0.5),0_0_22px_rgba(245,129,15,0.45)] transition-all duration-200 hover:bg-beacon hover:shadow-[0_0_0_1px_rgba(255,180,84,0.8),0_0_30px_rgba(255,180,84,0.6)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-beacon focus-visible:ring-offset-2 focus-visible:ring-offset-bg ${className}`}
+    >
+      <span className="relative flex h-2 w-2">
+        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-bg/60" />
+        <span className="relative inline-flex h-2 w-2 rounded-full bg-bg" />
+      </span>
+      <span>
+        Demo<span className="hidden min-[420px]:inline"> Exhibition</span>
+      </span>
+      <span
+        aria-hidden="true"
+        className="transition-transform duration-200 group-hover:translate-x-0.5"
+      >
+        →
+      </span>
+    </Link>
+  );
+}
 
 export default function NavBar() {
   const pathname = usePathname();
@@ -43,7 +69,8 @@ export default function NavBar() {
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden items-center gap-7 text-sm text-ink-dim md:flex">
+        <div className="hidden items-center gap-7 md:flex">
+        <nav className="flex items-center gap-7 text-sm text-ink-dim">
           {links.map((l) => {
             const active = isActive(l.href);
             return (
@@ -60,10 +87,14 @@ export default function NavBar() {
             );
           })}
         </nav>
+        <DemoCta />
+        </div>
 
-        {/* Mobile menu */}
+        {/* Mobile: CTA stays visible in the bar, menu holds the rest */}
+        <div className="flex items-center gap-2 md:hidden">
+        <DemoCta className="px-3 py-1.5 text-xs" />
         <Sheet>
-          <SheetTrigger  className="md:hidden">
+          <SheetTrigger>
             <Button
               variant="ghost"
               size="icon"
@@ -93,6 +124,7 @@ export default function NavBar() {
             </nav>
           </SheetContent>
         </Sheet>
+        </div>
       </div>
       <Separator className="bg-line/70" />
     </header>
