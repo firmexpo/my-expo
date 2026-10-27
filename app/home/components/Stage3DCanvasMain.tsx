@@ -25,16 +25,29 @@ export const Stage3DCanvasM: React.FC<Stage3DProps> = ({
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
   const isHoveringInteractive = useRef(false);
 
+  // const controlsState = useRef({
+  //   isDragging: false,
+  //   prevX: 0,
+  //   prevY: 0,
+  //   rotX: 0.38,
+  //   rotY: -0.6,
+  //   targetRotX: 0.1,
+  //   targetRotY: -0.6,
+  //   zoom: 38,
+  //   targetZoom: 38,
+  // });
+
   const controlsState = useRef({
     isDragging: false,
-    prevX: 0,
-    prevY: 0,
-    rotX: 0.38,
-    rotY: -0.6,
+    prevX: 0,// 0,
+    prevY: 0,// 0,
+    rotX: 0.38, //.38
+    rotY: -0.6, // -.6
     targetRotX: 0.1,
     targetRotY: -0.6,
-    zoom: 38,
-    targetZoom: 38,
+    // zoom: 38,
+    zoom: 17,
+    targetZoom: 30,
   });
 
   const boothMeshes = useRef<{ [key: string]: THREE.Group }>({});
@@ -42,57 +55,62 @@ export const Stage3DCanvasM: React.FC<Stage3DProps> = ({
 
   // Product / company display data. Each laptop carries the same record on
   // both sides; a blank URL means the display is visual-only and does not navigate.
+  const media_url = process.env.NEXT_PUBLIC_S3_BASE_URL || ''
+
   const productDisplays = [
     {
-      front: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1000&auto=format&fit=crop', // CNC Milling / Precision Engineering
-      back: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?q=80&w=1000&auto=format&fit=crop',
+      front: `${media_url}cnc-f.jpg`, // CNC Milling / Precision Engineering
+      back: `${media_url}cnc-b.jpg`,
       url: ''
     },
     {
-      front: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1000&auto=format&fit=crop', // Automotive Robotics Arm Assembly
-      back: 'https://images.unsplash.com/photo-1581092335397-9583fe92d232?q=80&w=1000&auto=format&fit=crop',
+      front: `${media_url}steel-f.jpg`, // CNC Milling / Precision Engineering
+      back: `${media_url}steel-b.jpg`,
       url: ''
     },
     {
-      front: 'https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?q=80&w=1000&auto=format&fit=crop', // Electronics Circuit Board Manufacturing
-      back: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1000&auto=format&fit=crop',
+      front: `${media_url}industry-f.jpg`, // CNC Milling / Precision Engineering
+      back: `${media_url}industry-b.jpg`,
       url: ''
     },
     {
-      front: 'https://images.unsplash.com/photo-1581091215367-9b6c00b3035a?q=80&w=1000&auto=format&fit=crop', // Automated Packaging & Conveyor Line
-      back: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=1000&auto=format&fit=crop',
+      front: `${media_url}robot-f.jpg`, // CNC Milling / Precision Engineering
+      back: `${media_url}robot-b.jpg`,
       url: ''
     },
     {
-      front: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=1000&auto=format&fit=crop', // Medical Device Cleanroom Production
-      back: 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?q=80&w=1000&auto=format&fit=crop',
+      front: `${media_url}mobility-f.jpg`, // CNC Milling / Precision Engineering
+      back: `${media_url}mobility-b.jpg`,
       url: ''
     },
     {
-      front: 'https://images.unsplash.com/photo-1581093458791-9d42e3c73812?q=80&w=1000&auto=format&fit=crop', // Agricultural Hydroponics & Smart Farming
-      back: 'https://images.unsplash.com/photo-1586771107445-d3ca888129ff?q=80&w=1000&auto=format&fit=crop',
+      front: `${media_url}medical-f.jpg`, // CNC Milling / Precision Engineering
+      back: `${media_url}medical-b.jpg`,
+      url: ''
+    },
+
+    {
+      front: `${media_url}electronic-f.jpg`, // CNC Milling / Precision Engineering
+      back: `${media_url}electronic-b.jpg`,
       url: ''
     },
     {
-      front: 'https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?q=80&w=1000&auto=format&fit=crop', // Industrial Metal Fabrication & Laser Cutting
-      back: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=1000&auto=format&fit=crop',
+      front: `${media_url}agri-f.jpg`, // CNC Milling / Precision Engineering
+      back: `${media_url}agri-b.jpg`,
+      url: ''
+    },
+
+    {
+      front: `${media_url}packing-f.jpg`, // CNC Milling / Precision Engineering
+      back: `${media_url}packing-b.jpg`,
       url: ''
     },
     {
-      front: 'https://images.unsplash.com/photo-1581092334651-ddf26d9a09d0?q=80&w=1000&auto=format&fit=crop', // Heavy Hydraulics & Turbine Manufacturing
-      back: 'https://images.unsplash.com/photo-1581092162384-8987c1d64718?q=80&w=1000&auto=format&fit=crop',
+      front: `${media_url}energy-f.jpg`, // CNC Milling / Precision Engineering
+      back: `${media_url}energy-b.jpg`,
       url: ''
     },
-    {
-      front: 'https://images.unsplash.com/photo-1581092335878-2d9ff86da2bf?q=80&w=1000&auto=format&fit=crop', // Quality Control & Metrology Inspection
-      back: 'https://images.unsplash.com/photo-1581093588401-fbb62a02f120?q=80&w=1000&auto=format&fit=crop',
-      url: ''
-    },
-    {
-      front: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop', // Additive Manufacturing / 3D Metal Printing
-      back: 'https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?q=80&w=1000&auto=format&fit=crop',
-      url: ''
-    }
+
   ];
 
   // Helper to generate dynamic digital display textures for screens & laptops
